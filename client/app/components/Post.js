@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Platform, Text } from "react-native";
+import { StyleSheet, View, Platform, Text, SafeAreaView } from "react-native";
 
 import {
   Header,
@@ -14,33 +14,37 @@ import {
   Thumbnail,
 } from "native-base";
 
-function Post({ username, comment }) {
+function Post({ username, comment, date }) {
   return (
-    <View style={styles.cardContent}>
+    <SafeAreaView style={styles.cardContent}>
       <Card style={styles.card}>
         <CardItem>
           <Thumbnail source={{ uri: "https://picsum.photos/200/300" }} small />
         </CardItem>
-        <View style={styles.cardBody}>
-          <Text style={styles.textTitle}>{username}</Text>
+        <SafeAreaView style={styles.cardBody}>
+          <View style={{flexDirection: "row"}}>
+            <Text style={styles.textTitle}>{username}</Text>
+            <Right/>
+            <Text>{date}</Text>
+          </View>
 
           <Text style={styles.text}>{comment}</Text>
-        </View>
+        </SafeAreaView>
       </Card>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   cardContent: {
-    marginHorizontal: "7%",
+    marginHorizontal: "5%",
     marginTop: 7,
   },
   card: {
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "flex-start",
     paddingVertical: 20,
+    paddingRight: 15
   },
   cardBody: {
     flexDirection: "column",
@@ -67,7 +71,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
       },
     }),
-    marginTop: 5,
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+      },
+    }),
+    marginTop: 10,
   },
 });
 

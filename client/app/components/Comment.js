@@ -1,43 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Platform, Text, FlatList } from "react-native";
 import usersApi from "../api/users";
+import commentsApi from "../api/comments";
+
+import Post from "./Post";
 
 function Comment(props) {
-  const [users, setUsers] = useState([]);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    loadUsers();
+    loadComments();
   }, []);
 
-  const loadUsers = async () => {
-    const response = await usersApi.getUsers();
-    setUsers(response.data);
-    // console.log(users[0], users[1]);
+  const loadComments = async () => {
+    const response = await commentsApi.getComments();
+    setComments(response.data);
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={users}
-        renderItem={({ item }) => <Text>{item.username}</Text>}
-      />
-    </View>
+    <FlatList
+      data={comments}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <Post
+          username={item.username}
+          comment={item.comment}
+          date={item.date}
+        />
+      )}
+    />
   );
 }
 
 {
   /* <FlatList
-  data={users}
-  keyExtractor={(user) => user.id}
-  renderItem={({ user }) => <Text style={{ flex: 1 }}>{user.username}</Text>}
+  data={comments}
+  keyExtractor={(item) => item._id}
+  renderItem={({ item }) => (
+    <Post username={item.userId} comment={item.comment} />
+  )}
 />; */
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 

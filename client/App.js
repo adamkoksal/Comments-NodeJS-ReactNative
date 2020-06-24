@@ -1,6 +1,6 @@
 import { Container, Content } from "native-base";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import AppHeader from "./app/components/AppHeader";
 import Comment from "./app/components/Comment";
@@ -10,12 +10,13 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <AppHeader />
-      <Content style={{ marginTop: 15 }}>
-        <Post
-          username="akoksal"
-          comment={"This is my first react app connected to a database!"}
-        />
-        <Post username="secondUser" comment={"This is awesome! Good job! :)"} />
+      <Post
+        style={{ marginTop: 15 }}
+        username="akoksal"
+        comment={"This is my first React Native app  connected to a database!"}
+        date={"Tue Jun 23 2020"}
+      />
+      <Content>
         <Comment></Comment>
       </Content>
     </View>

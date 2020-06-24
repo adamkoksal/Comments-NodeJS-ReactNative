@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/test", (req, res) => {
   res.send("It works baba");
 });
-app.use("/api/user", userRouter);
-app.use("/api/comment", commentRouter);
+app.use("/api/users", userRouter);
+app.use("/api/comments", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
